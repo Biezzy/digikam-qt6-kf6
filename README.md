@@ -113,3 +113,18 @@ Kernel: linux 6.14.0-37-generic
     • Digikam Developer Docs
     • KDE Frameworks Building
     • Qt6 Documentation
+
+--------------------------------------------------------------------------------------------------------------------
+
+⚠️ Note importante sur les plugins digiKam (Qt6)
+
+Lors d’une compilation personnalisée avec Qt6, digiKam ne trouve pas
+automatiquement ses plugins.
+
+Il est indispensable de définir :
+export DK_PLUGIN_PATH=$HOME/kde/usr/lib/digikam/plugins
+
+Sans cette variable :
+  +  les miniatures fonctionnent
+  +  l’aperçu principal échoue
+  +  le message “No plugins loaded” apparaît
