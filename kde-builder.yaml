@@ -1,0 +1,136 @@
+# ============================================================================
+# kde-builder.yaml
+#
+# Objectif :
+#   - Compiler digiKam master avec Qt6
+#   - Utiliser un Qt6 compilé manuellement dans $HOME
+#   - Installer KF6 dans un préfixe utilisateur
+#
+# Testé sur :
+#   - Linux Mint 22.x
+# ============================================================================
+
+config-version: 2
+
+# ============================================================================
+# Paramètres globaux
+# ============================================================================
+global:
+  branch-group: kf6-qt6
+
+  # Répertoires kde-builder (dans le HOME)
+  source-dir:  $HOME/kde/src
+  build-dir:   $HOME/kde/build
+  install-dir: $HOME/kde/usr
+  log-dir:     $HOME/kde/log
+
+  cmake-generator: Ninja
+  num-cores: 16
+  ninja-options: "-j16"
+
+# ============================================================================
+# Options CMake globales
+# ============================================================================
+cmake-options: >
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo
+  -DBUILD_TESTING=OFF
+  -DBUILD_PYTHON_BINDINGS=OFF
+  -DBUILD_WITH_QT6=ON
+  -DBUILD_WITH_QT5=OFF
+
+  # Qt6 compilé manuellement (à adapter si besoin)
+  -DCMAKE_PREFIX_PATH=
+    $HOME/kde/usr
+    $HOME/kde/usr/lib/x86_64-linux-gnu
+    $HOME/kde/usr/share
+    $HOME/Qt/6.10
+
+  # Emplacement des plugins digiKam
+  -DKDE_INSTALL_PLUGINDIR=lib/digikam/plugins
+
+# ============================================================================
+# Variables d’environnement injectées par kde-builder
+# ============================================================================
+set-env:
+  PATH: "$HOME/Qt/6.10/bin:$HOME/kde/usr/bin:${PATH}"
+
+  LD_LIBRARY_PATH: >
+    $HOME/Qt/6.10/lib
+    $HOME/kde/usr/lib
+    $HOME/kde/usr/lib/x86_64-linux-gnu
+    ${LD_LIBRARY_PATH}
+
+  PKG_CONFIG_PATH: >
+    $HOME/kde/usr/lib/pkgconfig
+    $HOME/kde/usr/lib/x86_64-linux-gnu/pkgconfig
+    $HOME/Qt/6.10/lib/pkgconfig
+    ${PKG_CONFIG_PATH}
+
+  CMAKE_PREFIX_PATH: >
+    $HOME/kde/usr
+    $HOME/kde/usr/lib/x86_64-linux-gnu
+    $HOME/kde/usr/share
+    $HOME/Qt/6.10
+
+  QT_PLUGIN_PATH: "$HOME/Qt/6.10/plugins"
+
+  # ⚠️ ESSENTIEL pour digiKam Qt6
+  DK_PLUGIN_PATH: "$HOME/kde/usr/lib/digikam/plugins"
+
+# ============================================================================
+# Frameworks KF6 requis par digiKam
+# ============================================================================
+project extra-cmake-modules:
+  branch: master
+  include-dependencies: false
+
+project kcoreaddons:
+  branch: master
+  include-dependencies: false
+
+project kconfig:
+  branch: master
+  include-dependencies: false
+
+project kdbusaddons:
+  branch: master
+  include-dependencies: false
+
+project breeze-icons:
+  branch: master
+  include-dependencies: false
+
+project kiconthemes:
+  branch: master
+  include-dependencies: false
+
+project kcrash:
+  branch: master
+  include-dependencies: false
+
+project kitemmodels:
+  branch: master
+  include-dependencies: false
+
+project karchive:
+  branch: master
+  include-dependencies: false
+
+project kcolorscheme:
+  branch: master
+  include-dependencies: false
+
+project kguiaddons:
+  branch: master
+  include-dependencies: false
+
+project kcodecs:
+  branch: master
+  include-dependencies: false
+
+# ============================================================================
+# digiKam (Qt6 / master)
+# ============================================================================
+project digikam:
+  branch: master
+  include-dependencies: false
